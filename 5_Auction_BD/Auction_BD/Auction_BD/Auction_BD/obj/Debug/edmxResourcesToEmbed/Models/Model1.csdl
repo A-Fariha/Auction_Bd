@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Auction_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="ad_id" />
+    </Key>
+    <Property Name="ad_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ad_username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ad_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="cetagories" Relationship="Self.FK__cetagory__cat_fk__1FCDBCEB" FromRole="admin" ToRole="cetagory" />
+  </EntityType>
+  <EntityType Name="cetagory">
+    <Key>
+      <PropertyRef Name="cat_id" />
+    </Key>
+    <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cat_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cat_iamge" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="cat_fk_ad" Type="Int32" />
+    <NavigationProperty Name="admin" Relationship="Self.FK__cetagory__cat_fk__1FCDBCEB" FromRole="cetagory" ToRole="admin" />
+    <NavigationProperty Name="products" Relationship="Self.FK__product__pro_fk___267ABA7A" FromRole="cetagory" ToRole="product" />
+    <Property Name="sts" Type="Int32" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="pro_id" />
+    </Key>
+    <Property Name="pro_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pro_iamge" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="pro_price" Type="Int32" Nullable="false" />
+    <Property Name="pro_des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="pro_fk_cat" Type="Int32" />
+    <Property Name="pro_fk_user" Type="Int32" />
+    <NavigationProperty Name="cetagory" Relationship="Self.FK__product__pro_fk___267ABA7A" FromRole="product" ToRole="cetagory" />
+    <NavigationProperty Name="user" Relationship="Self.FK__product__pro_fk___276EDEB3" FromRole="product" ToRole="users" />
+    <Property Name="bid_price" Type="Int32" />
+    <Property Name="aprv" Type="Int32" />
+    <Property Name="u_id" Type="Int32" />
+    <Property Name="date_of_post" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="user1" Relationship="Auction_BDModel.FK__product__u_id__36B12243" FromRole="product" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="u_id" />
+    </Key>
+    <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="u_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="u_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="u_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="u_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="u_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="products" Relationship="Self.FK__product__pro_fk___276EDEB3" FromRole="users" ToRole="product" />
+    <NavigationProperty Name="products1" Relationship="Auction_BDModel.FK__product__u_id__36B12243" FromRole="user" ToRole="product" />
+  </EntityType>
+  <Association Name="FK__cetagory__cat_fk__1FCDBCEB">
+    <End Role="admin" Type="Self.admin" Multiplicity="0..1" />
+    <End Role="cetagory" Type="Self.cetagory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="admin">
+        <PropertyRef Name="ad_id" />
+      </Principal>
+      <Dependent Role="cetagory">
+        <PropertyRef Name="cat_fk_ad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product__pro_fk___267ABA7A">
+    <End Role="cetagory" Type="Self.cetagory" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cetagory">
+        <PropertyRef Name="cat_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="pro_fk_cat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product__pro_fk___276EDEB3">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="u_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="pro_fk_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Auction_BDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="admins" EntityType="Self.admin" />
+    <EntitySet Name="cetagories" EntityType="Self.cetagory" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK__cetagory__cat_fk__1FCDBCEB" Association="Self.FK__cetagory__cat_fk__1FCDBCEB">
+      <End Role="admin" EntitySet="admins" />
+      <End Role="cetagory" EntitySet="cetagories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product__pro_fk___267ABA7A" Association="Self.FK__product__pro_fk___267ABA7A">
+      <End Role="cetagory" EntitySet="cetagories" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product__pro_fk___276EDEB3" Association="Self.FK__product__pro_fk___276EDEB3">
+      <End Role="users" EntitySet="users" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="Auction_BDModel.sysdiagram" />
+    <AssociationSet Name="FK__product__u_id__36B12243" Association="Auction_BDModel.FK__product__u_id__36B12243">
+      <End Role="user" EntitySet="users" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__product__u_id__36B12243">
+    <End Type="Auction_BDModel.user" Role="user" Multiplicity="0..1" />
+    <End Type="Auction_BDModel.product" Role="product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="u_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="u_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

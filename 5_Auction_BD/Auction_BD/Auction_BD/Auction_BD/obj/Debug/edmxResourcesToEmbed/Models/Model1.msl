@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Auction_BDModelStoreContainer" CdmEntityContainer="Auction_BDEntities">
+    <EntitySetMapping Name="admins">
+      <EntityTypeMapping TypeName="Auction_BDModel.admin">
+        <MappingFragment StoreEntitySet="admin">
+          <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+          <ScalarProperty Name="ad_username" ColumnName="ad_username" />
+          <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cetagories">
+      <EntityTypeMapping TypeName="Auction_BDModel.cetagory">
+        <MappingFragment StoreEntitySet="cetagory">
+          <ScalarProperty Name="sts" ColumnName="sts" />
+          <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+          <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+          <ScalarProperty Name="cat_iamge" ColumnName="cat_iamge" />
+          <ScalarProperty Name="cat_fk_ad" ColumnName="cat_fk_ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="Auction_BDModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="date_of_post" ColumnName="date_of_post" />
+          <ScalarProperty Name="u_id" ColumnName="u_id" />
+          <ScalarProperty Name="aprv" ColumnName="aprv" />
+          <ScalarProperty Name="bid_price" ColumnName="bid_price" />
+          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+          <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+          <ScalarProperty Name="pro_iamge" ColumnName="pro_iamge" />
+          <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+          <ScalarProperty Name="pro_des" ColumnName="pro_des" />
+          <ScalarProperty Name="pro_fk_cat" ColumnName="pro_fk_cat" />
+          <ScalarProperty Name="pro_fk_user" ColumnName="pro_fk_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="Auction_BDModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="u_id" ColumnName="u_id" />
+          <ScalarProperty Name="u_name" ColumnName="u_name" />
+          <ScalarProperty Name="u_email" ColumnName="u_email" />
+          <ScalarProperty Name="u_phone" ColumnName="u_phone" />
+          <ScalarProperty Name="u_password" ColumnName="u_password" />
+          <ScalarProperty Name="u_image" ColumnName="u_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Auction_BDModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
